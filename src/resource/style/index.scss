@@ -1,0 +1,168 @@
+body {
+    font-family: Consolas, "Courier New", monospace, "microsoft yahei", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #fff;
+    background: #303030;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    outline: none;
+}
+button,
+input,
+select,
+textarea {
+    font-family: "Helvetica", "Microsoft Yahei";
+}
+
+html,
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+a,
+p,
+blockquote,
+table,
+th,
+td,
+header,
+hgroup,
+nav,
+section,
+article,
+aside,
+footer,
+figure,
+figcaption,
+menu,
+button,
+img {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    box-sizing: border-box;
+    list-style-type: none;
+    list-style-image: none;
+    resize: none;
+}
+
+img {
+    border: 0;
+    border: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+img,
+object,
+select,
+input,
+textarea,
+button {
+    vertical-align: middle;
+    box-sizing: content-box;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+    content: none;
+}
+
+abbr[title],
+acronym[title] {
+    border-bottom: 1px dotted;
+    cursor: help;
+}
+
+/* user agent stylesheet */
+
+textarea:disabled,
+input:not([type]):disabled,
+input[type="color"]:disabled,
+input[type="date"]:disabled,
+input[type="datetime"]:disabled,
+input[type="datetime-local"]:disabled,
+input[type="email"]:disabled,
+input[type="month"]:disabled,
+input[type="password"]:disabled,
+input[type="number"]:disabled,
+input[type="search"]:disabled,
+input[type="tel"]:disabled,
+input[type="text"]:disabled,
+input[type="time"]:disabled,
+input[type="url"]:disabled,
+input[type="week"]:disabled {
+    background-color: #fff;
+}
+/* 移除iOS上输入框默认有内部阴影 */
+input,
+textarea {
+    　　border: 0;
+    　　-webkit-appearance: none; /* 可能引起安卓4.4以下版本checkbox隐藏，解决方案：用div代替checkbox */
+}
+button {
+    cursor: pointer;
+    &[disabled] {
+        cursor: not-allowed;
+    }
+}
+/**************************** 全局样式 ****************************/
+::-webkit-scrollbar {
+    width: 8px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 0 #666;
+    box-shadow: inset 0 0 0 #666;
+    background: rgba(0, 0, 0, 0);
+}
+::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    cursor: -webkit-grab;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 0 #666;
+    box-shadow: inset 0 0 0 #666;
+    background: #666;
+}
+::-webkit-scrollbar-thumb:hover {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 0 #444;
+    box-shadow: inset 0 0 0 #444;
+    background: #444;
+}
+::-webkit-scrollbar-thumb:vertical:hover {
+    cursor: pointer;
+    cursor: -webkit-grab;
+}
