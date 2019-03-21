@@ -31,7 +31,6 @@ export default class App extends Vue {}
     }
 }
 pre {
-    font-family: Consolas, "Courier New", monospace;
     .string {
         color: #e6db74;
     }

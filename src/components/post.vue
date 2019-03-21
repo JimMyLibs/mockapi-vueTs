@@ -6,16 +6,16 @@
                     <div class="hd_method">{{postForm.method}}</div>
                     <input class="hd_url flex1" v-model="postForm.url">
                 </div>
-                <div class="hd_send">Send</div>
+                <div class="hd_send" @click="post">Send</div>
             </div>
         </div>
         <div class="post_bd flex1 flex">
-            <div class="bd_req flex1">
+            <div class="bd_req flex1 flex column">
                 <pre class="text_req" contenteditable="true" v-html="reqData"></pre>
-                <!-- <textarea class="text_req" name="text_req" id="text_req" cols="30" rows="10" v-model="reqData"></textarea> -->
+                <textarea class="text_req" name="text_req" id="text_req" cols="30" rows="10" @keydown.tab="inputTab($event)" v-model="reqBody"></textarea>
             </div>
             <div class="bd_res flex1 scrollbar">
-                <pre v-html="resData"></pre>
+                <pre contenteditable="true" v-html="resData"></pre>
             </div>
         </div>
     </div>
@@ -24,45 +24,22 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 
-@Component
+@Component({
+    directives: {}
+})
 export default class Pages_post extends Vue {
     pageName: string = "pages_post";
     postForm: any = {
         method: "POST",
         url: "http://172.21.0.21:3001/"
     };
-    postBody: any = {
-        mock: {
-            respCode: "0000",
-            message: "模拟数据",
-            data: {
-                id: "id",
-                name: "cname",
-                username: "userName",
-                tel: "tel",
-                phone: "phone",
-                idCard: "idCard",
-                bankCard: "bankCard",
-                email: "email",
-                qq: "qq",
-                carNum: "carNum",
-                icon: "icon",
-                detailAddress: "detailAddress",
-                obj: { title: "ctitle", cparagraph: "cparagraph" },
-                list: ["cname"],
-                list2: [{ image: "image", id: "id" }],
-                pageSize: 10,
-                totalNum: { totalNumName: 23 },
-                curPage: { curPageName: 3 }
-            }
-        }
-    };
+    reqBody: any = '{\n\t"mock": {\n\t\t"id":"id"\n\t}\n}';
     resBody: any = {};
     get reqData(): string {
-        return this.inputFormat(this.postBody);
+        return this.syntaxHighlight(this.reqBody);
     }
     get resData(): string {
-        return this.syntaxHighlight(this.postBody);
+        return this.syntaxHighlight(this.resBody);
     }
     mounted() {
         this.post();
@@ -73,9 +50,9 @@ export default class Pages_post extends Vue {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                ...this.postBody
-            })
+            body: JSON.stringify(
+                JSON.parse(this.reqBody.replace(/\n/g,'').replace(/\t/g,''))
+            )
         })
             .then(data => {
                 // in some SAMSUNG mobile data.ok is undefined so add data.status
@@ -87,42 +64,34 @@ export default class Pages_post extends Vue {
                 }
             })
             .then(data => {
+                this.resBody = data;
                 return data;
             })
             .catch(function(e) {
                 console.log("fetch fail", JSON.stringify(e));
             });
     }
+    inputTab(e): void {
+        let selectionStart = e.target.selectionStart;
+        let selectionEnd = e.target.selectionEnd;
+        let pos = selectionStart + 2;
+        console.log("tab", pos, selectionStart, selectionEnd);
+        e.target.value = e.target.value.substr(0, selectionStart) + "\t" + e.target.value.substr(selectionStart);
+        e.target.selectionStart = e.target.selectionEnd = pos-1;
+        e.target.focus();
+        console.log("tab2", pos, selectionStart, selectionEnd);
+        e && e.preventDefault();
+    }
     inputFormat(json): string {
         if (typeof json != "string") {
-            json = JSON.stringify(json, undefined, 2);
+            json = JSON.stringify(json, undefined, 4);
         }
-        json = json
-            .replace(/&/g, "&")
-            .replace(/</g, "<")
-            .replace(/>/g, ">");
-        return json.replace(
-            /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
-            function(match) {
-                var cls = "number";
-                if (/^"/.test(match)) {
-                    if (/:$/.test(match)) {
-                        cls = "key";
-                    } else {
-                        cls = "string";
-                    }
-                } else if (/true|false/.test(match)) {
-                    cls = "boolean";
-                } else if (/null/.test(match)) {
-                    cls = "null";
-                }
-                return '<span class="' + cls + '">' + match + "</span>";
-            }
-        );
+        json = json.replace(/,/g, ",");
+        return json;
     }
     syntaxHighlight(json): string {
         if (typeof json != "string") {
-            json = JSON.stringify(json, undefined, 2);
+            json = JSON.stringify(json, undefined, 4);
         }
         json = json
             .replace(/&/g, "&")
@@ -218,18 +187,26 @@ export default class Pages_post extends Vue {
             border: 1px solid #404040;
             background: #282828;
             padding: 20px;
-            .text_req {
+            .text_req,pre {
                 border: 0;
                 color: #fff;
                 background: #282828;
                 width: 100%;
                 height: 100%;
+                line-height: 1.6;
                 &:active,
                 &:hover,
                 &:focus {
-                    background: #282828;
                     outline: 0;
                 }
+            }
+            textarea.text_req{
+                color: #ffffff00;
+                caret-color: #fff;
+                transform: translate(0,-100%);
+                background: transparent;
+                letter-spacing: 0.4px;
+                line-height: 1.7;
             }
         }
     }

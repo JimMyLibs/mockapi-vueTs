@@ -13,8 +13,10 @@ body {
 button,
 input,
 select,
-textarea {
-    font-family: "Helvetica", "Microsoft Yahei";
+textarea,
+pre {
+    font-family: Consolas, "Courier New", monospace,"Helvetica", "Microsoft Yahei";
+    tab-size: 4;
 }
 
 html,
