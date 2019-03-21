@@ -30,6 +30,30 @@ export default class App extends Vue {}
         flex: 1;
     }
 }
+.btn {
+    display: inline-block;
+    border-radius: 5px;
+    box-sizing: content-box;
+    overflow: hidden;
+    padding: 0 20px;
+    line-height: 40px;
+    background: #1890ff;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    &:hover,&:focus {
+        background: #40a9ff;
+    }
+    &:active,&.active {
+        background-color: #096dd9;
+    }
+}
+.mg_t_10{
+    margin-top: 10px;
+}
+.mg_l_10{
+    margin-left: 10px;
+}
 pre {
     .string {
         color: #e6db74;
