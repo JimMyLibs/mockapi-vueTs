@@ -6,10 +6,20 @@
                     <div class="hd_method">{{postForm.method}}</div>
                     <input class="hd_url flex1" v-model="postForm.url">
                 </div>
-                <div class="hd_send" @click="post">Send</div>
+                <div class="hd_send btn mg_l_10" @click="post">Send</div>
             </div>
         </div>
-        <div class="post_bd flex1 flex">
+        <div class="hd_btn mg_t_10">
+            <div class="btn" @click="setReq('normal')">常用数据</div>
+            <div class="btn mg_l_10" @click="setReq('page')">分页数据</div>
+            <div class="btn mg_l_10" @click="setReq('diyPage')">自定义分页名称</div>
+            <div class="btn mg_l_10" @click="setReq('dataType')">数据类型</div>
+            <div class="btn mg_l_10" @click="setReq('mockapi')">mockapi</div>
+        </div>
+        <div class="post_headers">
+            headers: { "Content-Type": "application/json" },
+        </div>
+        <div class="post_bd flex1 flex" :class="{'column': clientWidth<1080}">
             <div class="bd_req flex1">
                 <pre class="text_req" contenteditable="true" v-html="reqData"></pre>
                 <textarea class="text_req" name="text_req" id="text_req" @keydown.tab="inputTab($event)" v-model="reqBody"></textarea>
@@ -23,6 +33,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { initData } from '../resource/js/init'
 
 Vue.config.errorHandler = function (err, vm, info) {
     vm.$data.resBody = {
@@ -42,7 +53,8 @@ export default class Pages_post extends Vue {
     pageName: string = "pages_post";
     postForm: any = {
         method: "POST",
-        url: "http://mock.91525.net:35001/"
+        // url: "http://mock.91525.net:35001/",
+        url: "http://172.21.0.21:3001/",
     };
     reqBody: any = '{\n\t"mock": {\n\t\t"id":"id"\n\t}\n}';
     resBody: any = {};
@@ -52,12 +64,38 @@ export default class Pages_post extends Vue {
     get resData(): string {
         return this.syntaxHighlight(this.resBody);
     }
+    get clientWidth(): number {
+        return document.documentElement.clientWidth;
+    }
     mounted() {
+        this.setReq('normal');
+    }
+    jsonFormat(json: any): string {
+        return JSON.stringify(json, undefined, 4);
+    }
+    setReq(type) {
+        switch(type){
+            case 'normal':
+                this.reqBody = this.jsonFormat(initData[type]);
+                break;
+            case 'page':
+                this.reqBody = this.jsonFormat(initData[type]);
+                break;
+            case 'diyPage':
+                this.reqBody = this.jsonFormat(initData[type]);
+                break;
+            case 'dataType':
+                this.reqBody = this.jsonFormat(initData[type]);
+                break;
+            case 'mockapi' :
+                this.reqBody = this.jsonFormat(initData[type]);
+                break;
+        }
         this.post();
     }
     post(): void {
-        fetch("http://172.21.0.21:3001/", {
-            method: "POST",
+        fetch(this.postForm.url, {
+            method: this.postForm.method,
             headers: {
                 "Content-Type": "application/json"
             },
@@ -102,16 +140,9 @@ export default class Pages_post extends Vue {
         e.target.focus();
         e && e.preventDefault();
     }
-    inputFormat(json: any): string {
-        if (typeof json != "string") {
-            json = JSON.stringify(json, undefined, 4);
-        }
-        json = json.replace(/,/g, ",");
-        return json;
-    }
     syntaxHighlight(json: any): string {
         if (typeof json != "string") {
-            json = JSON.stringify(json, undefined, 4);
+            json = this.jsonFormat(json);
         }
         json = json
             .replace(/&/g, "&")
@@ -176,27 +207,14 @@ export default class Pages_post extends Vue {
                     box-sizing: border-box;
                 }
             }
-            .hd_send {
-                border-radius: 5px;
-                box-sizing: content-box;
-                overflow: hidden;
-                width: 80px;
-                line-height: 40px;
-                background: #1890ff;
-                margin-left: 10px;
-                text-align: center;
-                cursor: pointer;
-                user-select: none;
-                &:hover,
-                &:focus {
-                    background: #40a9ff;
-                }
-                &:active,
-                &.active {
-                    background-color: #096dd9;
-                }
-            }
         }
+    }
+    .post_headers{       
+        margin-top: 10px; 
+        border-radius: 5px;
+        border: 1px solid #404040;
+        background: #282828;
+        padding: 10px;
     }
     .post_bd {
         margin-top: 10px;
