@@ -68,7 +68,7 @@ export default class Pages_post extends Vue {
         return document.documentElement.clientWidth;
     }
     mounted() {
-        this.post();
+        this.setReq('normal');
     }
     jsonFormat(json: any): string {
         return JSON.stringify(json, undefined, 4);
