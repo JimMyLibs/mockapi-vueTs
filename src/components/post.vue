@@ -39,9 +39,9 @@ Vue.config.errorHandler = function (err, vm, info) {
     vm.$data.resBody = {
         '异常信息': err.message,
         '异常名称': err.name,
-        '异常脚本url': err.script,
-        '异常行号': err.line,
-        '异常列号': err.column,
+        // '异常脚本url': err.script,
+        // '异常行号': err.line,
+        // '异常列号': err.column,
         '异常堆栈信息': err.stack,
         'handle ': info,
     };
@@ -73,22 +73,22 @@ export default class Pages_post extends Vue {
     jsonFormat(json: any): string {
         return JSON.stringify(json, undefined, 4);
     }
-    setReq(type) {
+    setReq(type: string) {
         switch(type){
             case 'normal':
-                this.reqBody = this.jsonFormat(initData[type]);
+                this.reqBody = this.jsonFormat((initData as any)[type]);
                 break;
             case 'page':
-                this.reqBody = this.jsonFormat(initData[type]);
+                this.reqBody = this.jsonFormat((initData as any)[type]);
                 break;
             case 'diyPage':
-                this.reqBody = this.jsonFormat(initData[type]);
+                this.reqBody = this.jsonFormat((initData as any)[type]);
                 break;
             case 'dataType':
-                this.reqBody = this.jsonFormat(initData[type]);
+                this.reqBody = this.jsonFormat((initData as any)[type]);
                 break;
             case 'mockapi' :
-                this.reqBody = this.jsonFormat(initData[type]);
+                this.reqBody = this.jsonFormat((initData as any)[type]);
                 break;
         }
         this.post();

@@ -12,6 +12,7 @@ export const initData = {
             qq: 'qq',
             carNum: 'carNum',
             icon: 'icon',
+            base64: 'base64',
             detailAddress: 'detailAddress',
         },
     },
