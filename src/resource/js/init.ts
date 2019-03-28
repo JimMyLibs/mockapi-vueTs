@@ -14,6 +14,9 @@ export const initData = {
             icon: 'icon',
             base64: 'base64',
             detailAddress: 'detailAddress',
+            intRange: '1-10',
+            floatRange: '1.123-99.123456',
+            oneOf: '[1,12,123,1234]',
         },
     },
     page: {
