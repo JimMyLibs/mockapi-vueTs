@@ -1,4 +1,12 @@
-# mockapi-vueTs2
+# mockapi-vueTs 
+
+> ### [在线体验: demo](http://mock.91525.net)
+> ### [客户端](https://github.com/JimMyLibs/mockapi-vueTs)
+> ### [服务端](https://github.com/JimMyLibs/mockApi)
+
+> [我要用的字段，你这里面没有！我有新字段需求要提交](https://github.com/JimMyLibs/mockApi/issues/4)
+
+![demo截图](https://github.com/JimMyLibs/mockapi-vueTs/tree/master/src/resource/screenshot/mockapi001.png)
 
 ## Project setup
 ```
