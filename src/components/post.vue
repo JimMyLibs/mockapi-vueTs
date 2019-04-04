@@ -53,7 +53,6 @@ export default class Pages_post extends Vue {
     pageName: string = "pages_post";
     postForm: any = {
         method: "POST",
-        // url: "http://mock.91525.net:35001/",
         url: process.env.NODE_ENV == 'development' ? "http://172.21.0.21:3001/" : "http://mock.91525.net:35001/",
     };
     reqBody: any = '{\n\t"mock": {\n\t\t"id":"id"\n\t}\n}';
@@ -101,7 +100,8 @@ export default class Pages_post extends Vue {
             },
             body: JSON.stringify(
                 JSON.parse(this.reqBody.replace(/\n/g,'').replace(/\t/g,''))
-            )
+            ),
+            mode: 'cors',
         })
             .then((data: any) => {
                 // in some SAMSUNG mobile data.ok is undefined so add data.status
