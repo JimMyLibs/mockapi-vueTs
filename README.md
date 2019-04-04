@@ -6,7 +6,7 @@
 
 > [我要用的字段，你这里面没有！我有新字段需求要提交](https://github.com/JimMyLibs/mockApi/issues/4)
 
-![demo截图](https://raw.githubusercontent.com/JimMyLibs/mockapi-vueTs/master/src/resource/screenshot/mockapi-vueTs001.gif.png)
+![demo截图](https://raw.githubusercontent.com/JimMyLibs/mockapi-vueTs/master/src/resource/screenshot/mockapi-vueTs001.gif)
 
 ## Project setup
 ```
